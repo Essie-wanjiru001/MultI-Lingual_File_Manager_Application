@@ -1,22 +1,24 @@
-// src/models/User.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const db = require('../config/database');
+const bcrypt = require('bcrypt');
 
-const User = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  language: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'en',
-  },
-});
+class User {
+  static async create(username, email, password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const [result] = await db.query(
+      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+      [username, email, hashedPassword]
+    );
+    return { id: result.insertId, username, email };
+  }
+
+  static async findByUsername(username) {
+    const [rows] = await db.query('SELECT * FROM users WHERE username = ?', [username]);
+    return rows[0];
+  }
+
+  static async validatePassword(user, password) {
+    return bcrypt.compare(password, user.password);
+  }
+}
 
 module.exports = User;
