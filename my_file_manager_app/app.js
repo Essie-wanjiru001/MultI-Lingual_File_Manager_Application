@@ -1,25 +1,18 @@
-// app.js
+require('dotenv').config(); // Load environment variables
 const express = require('express');
-const { syncDatabase } = require('./src/models');
 
 const app = express();
-const port = process.env.PORT || 3000;
 
+// Middleware for parsing JSON requests
 app.use(express.json());
 
+// Test route
 app.get('/', (req, res) => {
-  res.send('Multilingual File Manager Application');
+  res.send('Server is running!');
 });
 
-const startServer = async () => {
-  try {
-    await syncDatabase();
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-};
-
-startServer();
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
