@@ -35,8 +35,7 @@ exports.logout = (req, res) => {
     if (err) {
       return next(err);
     }
+    req.flash('success', 'You have been logged out successfully');
     res.redirect('/login');
   });
-
-  res.json({ message: 'Logged out successfully' });
 };
