@@ -4,15 +4,26 @@ const session = require('express-session');
 const morgan = require('morgan');
 const flash = require('connect-flash');
 const { ensureAuthenticated } = require('./middleware/auth');
-const { i18next, i18nextHttpMiddleware } = require('./i18nConfig');
-const setLanguage = require('./middleware/languageMiddleware');
 const passport = require('./config/passport');
 const userRoutes = require('./routes/userRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const File = require('./models/file');
+// const i18next = require('./i18nConfig');
+// const i18nextFsBackend = require('i18next-fs-backend');
+// const i18nextHttpMiddleware = require('i18next-http-middleware');
+// const path = require('path');
+// const setLanguage = require('./middleware/languageMiddleware');
 
 const app = express();
- // register view engine
+
+
+// i18next middleware
+// app.use(i18nextHttpMiddleware.handle(i18next));
+
+// language middleware
+// app.use(setLanguage);
+
+// register view engine
 app.set('view engine', 'ejs');
 
 // middleware and static files
@@ -21,13 +32,6 @@ app.use(morgan('dev'));
 
 // Middleware for parsing JSON requests
 app.use(express.json());
-
-// i18next middleware
-app.use(i18nextHttpMiddleware.handle(i18next));
-
-// language middleware
-app.use(i18nextHttpMiddleware.handle(i18next));
-app.use(setLanguage);
 
 // Middleware for parsing URL-encoded data
 app.use(express.urlencoded({ extended: true }));
