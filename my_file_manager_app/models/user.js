@@ -39,9 +39,21 @@ User.findByUsername = async function (username) {
   return await this.findOne({ where: { username } });
 };
 
+// Static method to find user by email
+User.findByEmail = async function(email) {
+  return await this.findOne({ where: { email } });
+};
+
 // Static method to validate password
 User.validatePassword = async function (user, password) {
   return await bcrypt.compare(password, user.password);
 };
+
+// // Instance method to safely return user data without password
+// User.prototype.toJSON = function() {
+//   const values = { ...this.get() };
+//   delete values.password;
+//   return values;
+// };
 
 module.exports = User;

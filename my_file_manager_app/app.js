@@ -1,6 +1,8 @@
 require('dotenv').config(); // Load environment variables
 const express = require('express');
 const session = require('express-session');
+const morgan = require('morgan');
+const flash = require('connect-flash');
 const passport = require('./config/passport');
 const userRoutes = require('./routes/userRoutes');
 const fileRoutes = require('./routes/fileRoutes');
@@ -27,6 +29,9 @@ app.use(session({
   cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production
 }));
 
+// Flash middleware
+app.use(flash());
+
 // Initialize passport and session
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,7 +50,7 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { messages: req.flash() });
 });
 
 // Start the server

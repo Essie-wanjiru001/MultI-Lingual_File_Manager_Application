@@ -3,14 +3,21 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
 
 passport.use(new LocalStrategy(
-  async (username, password, done) => {
+  {
+    usernameField: 'email', // Specify that we are using 'email' as the username field
+    passwordField: 'password'
+  },
+  async (email, password, done) => {
     try {
-      const user = await User.findByUsername(username);
+      console.log('Attempting login with email:', email);
+      const user = await User.findByEmail(email);
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        console.log('No user found with email:', email);
+        return done(null, false, { message: 'Incorrect email.' });
       }
       const isValid = await User.validatePassword(user, password);
       if (!isValid) {
+        console.log('Invalid password for user:', email);
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);

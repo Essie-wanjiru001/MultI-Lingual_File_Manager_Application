@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Manager Application</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <h1>File Manager</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <li>
+                <form id="languageForm">
+                    <select id="languageSelect" name="language" onchange="changeLanguage()">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <!-- Add more languages as needed -->
+                    </select>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h2>Welcome to the File Manager Application</h2>
+        <p>This is a multilingual file manager application that allows you to manage your files with ease.</p>
+        <p>Please register or login to access your dashboard and start managing your files.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 File Manager Application</p>
+    </footer>
+
+</body>
+</html>
