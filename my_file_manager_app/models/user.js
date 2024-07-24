@@ -24,7 +24,8 @@ const User = sequelize.define('User', {
   }
 }, {
   tableName: 'users',
-  timestamps: true,
+  timestamps: false,
+  
 });
 
 // Hash password before creating user
