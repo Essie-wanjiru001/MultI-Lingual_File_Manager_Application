@@ -1,24 +1,46 @@
-const db = require('../config/database');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
 const bcrypt = require('bcrypt');
 
-class User {
-  static async create(username, email, password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const [result] = await db.query(
-      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-      [username, email, hashedPassword]
-    );
-    return { id: result.insertId, username, email };
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
   }
+}, {
+  tableName: 'users',
+  timestamps: true,
+});
 
-  static async findByUsername(username) {
-    const [rows] = await db.query('SELECT * FROM users WHERE username = ?', [username]);
-    return rows[0];
-  }
+// Hash password before creating user
+User.beforeCreate(async (user) => {
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  user.password = hashedPassword;
+});
 
-  static async validatePassword(user, password) {
-    return bcrypt.compare(password, user.password);
-  }
-}
+// Static method to find user by username
+User.findByUsername = async function (username) {
+  return await this.findOne({ where: { username } });
+};
+
+// Static method to validate password
+User.validatePassword = async function (user, password) {
+  return await bcrypt.compare(password, user.password);
+};
 
 module.exports = User;

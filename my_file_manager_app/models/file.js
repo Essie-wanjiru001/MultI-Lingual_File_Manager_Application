@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Adjust the path as necessary
+const { sequelize } = require('../config/database');
 
 const File = sequelize.define('File', {
   id: {
@@ -29,7 +29,7 @@ const File = sequelize.define('File', {
   },
 }, {
   tableName: 'files',
-  timestamps: true, // Automatically adds `createdAt` and `updatedAt` columns
+  timestamps: true,
 });
 
 module.exports = File;
