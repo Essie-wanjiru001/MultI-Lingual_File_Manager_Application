@@ -21,7 +21,7 @@ const File = sequelize.define('File', {
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true, // Make sure this matches the table definition (nullable)
   },
   path: {
     type: DataTypes.STRING,
@@ -30,6 +30,8 @@ const File = sequelize.define('File', {
 }, {
   tableName: 'files',
   timestamps: true,
+  createdAt: 'created_at', // Match the column names in the database
+  updatedAt: 'updated_at', // Match the column names in the database
 });
 
 module.exports = File;
