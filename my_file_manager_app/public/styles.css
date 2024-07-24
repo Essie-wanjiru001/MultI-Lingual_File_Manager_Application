@@ -107,3 +107,118 @@ h3 {
 .user-info p {
     margin-bottom: 10px;
 }
+
+.file-manager-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title for file manager */
+.section-title {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* File upload form */
+.upload-form {
+    margin-bottom: 30px;
+}
+
+/* File input styling */
+.file-input {
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    width: 70%;
+}
+
+/* Table container for responsiveness */
+.table-container {
+    overflow-x: auto;
+}
+
+/* File list table */
+.files-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Table header and cell styling */
+.files-table th,
+.files-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table header specific styling */
+.files-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Alternating row colors for better readability */
+.files-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Button styling */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+/* Primary button (e.g., Upload) */
+.btn-primary {
+    background-color: crimson;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #a51230;
+}
+
+/* Secondary button (e.g., View) */
+.btn-secondary {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #45a049;
+}
+
+/* Danger button (e.g., Delete) */
+.btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #da190b;
+}
+
+/* Language selection form */
+.language-form {
+    margin-left: 20px;
+}
+
+/* Language select dropdown */
+.language-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}

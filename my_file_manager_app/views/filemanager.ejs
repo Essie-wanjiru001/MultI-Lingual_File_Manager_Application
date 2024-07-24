@@ -8,63 +8,64 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 
-<body>
-    <nav>
-        <h1>File Manager</h1>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/files">My Files</a></li>
-            <li><a href="/logout">Logout</a></li>
+<body class="file-manager-body">
+    <nav class="main-nav">
+        <h1 class="app-title">File Manager</h1>
+        <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/files" class="nav-link">My Files</a></li>
+            <li><a href="/logout" class="nav-link">Logout</a></li>
             <li>
-                <form id="languageForm">
-                    <select id="languageSelect" name="language" onchange="changeLanguage()">
+                <form id="languageForm" class="language-form">
+                    <select id="languageSelect" name="language" onchange="changeLanguage()" class="language-select">
                         <option value="en">English</option>
                         <option value="es">Español</option>
                         <option value="fr">Français</option>
                         <option value="de">Deutsch</option>
-                        <!-- Add more languages as needed -->
                     </select>
                 </form>
             </li>
         </ul>
     </nav>
 
-    <div class="content">
-        <h2>Manage Your Files</h2>
-        <form action="/api/files/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <button type="submit">Upload File</button>
+    <div class="content file-manager-content">
+        <h2 class="section-title">Manage Your Files</h2>
+        <form action="/api/files/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="file" required class="file-input">
+            <button type="submit" class="btn btn-primary">Upload File</button>
         </form>
 
-        <h3>Files List</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Size (bytes)</th>
-                    <th>Type</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% files.forEach(file => { %>
+        <h3 class="sub-section-title">Files List</h3>
+        <div class="table-container">
+            <table class="files-table">
+                <thead>
                     <tr>
-                        <td><%= file.name %></td>
-                        <td><%= file.size %></td>
-                        <td><%= file.type %></td>
-                        <td>
-                            <a href="/api/files/<%= file.id %>" target="_blank">View</a>
-                            <form action="/api/files/<%= file.id %>" method="POST" style="display:inline;">
-                                <button type="submit" formaction="/api/files/<%= file.id %>" formmethod="DELETE">Delete</button>
-                            </form>
-                        </td>
+                        <th>Name</th>
+                        <th>Size (bytes)</th>
+                        <th>Type</th>
+                        <th>Actions</th>
                     </tr>
-                <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% files.forEach(file => { %>
+                        <tr>
+                            <td><%= file.name %></td>
+                            <td><%= file.size %></td>
+                            <td><%= file.type %></td>
+                            <td class="action-buttons">
+                                <a href="/api/files/<%= file.id %>" target="_blank" class="btn btn-secondary">View</a>
+                                <form action="/api/files/<%= file.id %>" method="POST" class="inline-form">
+                                    <button type="submit" formaction="/api/files/<%= file.id %>" formmethod="DELETE" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <footer>
+    <footer class="main-footer">
         <p>&copy; 2024 File Manager Application</p>
     </footer>
 
