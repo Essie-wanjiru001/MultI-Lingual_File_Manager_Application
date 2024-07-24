@@ -6,17 +6,18 @@ const userRoutes = require('./routes/userRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 
 const app = express();
+ // register view engine
+app.set('view engine', 'ejs');
+
+// middleware and static files
+app.use(express.static('public'));
+app.use(morgan('dev'));
 
 // Middleware for parsing JSON requests
 app.use(express.json());
 
 // Middleware for parsing URL-encoded data
 app.use(express.urlencoded({ extended: true }));
-
-// Test route
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
 
 // Middleware for session management
 app.use(session({
@@ -33,6 +34,19 @@ app.use(passport.session());
 // Register routes
 app.use('/api/users', userRoutes);
 app.use('/api/files', fileRoutes); // Add route for file operations
+
+// ejs file routes
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
