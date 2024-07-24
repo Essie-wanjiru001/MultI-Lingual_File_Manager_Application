@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const flash = require('connect-flash');
+const { ensureAuthenticated } = require('./middleware/auth');
 const passport = require('./config/passport');
 const userRoutes = require('./routes/userRoutes');
 const fileRoutes = require('./routes/fileRoutes');
@@ -37,14 +38,16 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.messages = req.flash();
+  next();
+});
+
 // Register routes
 app.use('/api/users', userRoutes);
 app.use('/api/files', fileRoutes); // Add route for file operations
 
-// ejs file routes
-app.get('/', (req, res) => {
-  res.render('index');
-});
 
 app.get('/register', (req, res) => {
   res.render('register');
@@ -54,7 +57,13 @@ app.get('/login', (req, res) => {
   res.render('login', { messages: req.flash() });
 });
 
-app.get('/files', async (req, res) => {
+// ejs file routes
+app.get('/', ensureAuthenticated, (req, res) => {
+  res.render('index');
+});
+
+// protected route
+app.get('/files', ensureAuthenticated, async (req, res) => {
   try {
     const files = await File.findAll(); // Fetch all files from the database
     res.render('filemanager', { files });
