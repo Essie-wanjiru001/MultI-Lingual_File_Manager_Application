@@ -13,21 +13,21 @@ exports.uploadFile = async (req, res) => {
       userId: req.user.id, // Assuming you have user info from authentication middleware
       path: req.file.path,
     });
-    res.status(201).json(file);
+    res.redirect('/api/files/filemanager'); // Redirect to file manager page after upload
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Get all files
-exports.getAllFiles = async (req, res) => {
+exports.getAllFilesForView = async () => {
   try {
     const files = await File.findAll();
-    res.status(200).json(files);
+    return files;
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    throw new Error(error.message);
   }
 };
+
 
 // Get a file by ID
 exports.getFileById = async (req, res) => {
@@ -50,7 +50,7 @@ exports.deleteFile = async (req, res) => {
     if (file) {
       fs.unlinkSync(file.path); // Delete file from the filesystem
       await file.destroy(); // Delete file record from the database
-      res.status(204).end();
+      res.redirect('/api/files/filemanager'); // Redirect to file manager page after deletion
     } else {
       res.status(404).json({ message: 'File not found' });
     }

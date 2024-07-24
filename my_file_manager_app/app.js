@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const passport = require('./config/passport');
 const userRoutes = require('./routes/userRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const File = require('./models/file');
 
 const app = express();
  // register view engine
@@ -52,6 +53,17 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login', { messages: req.flash() });
 });
+
+app.get('/files', async (req, res) => {
+  try {
+    const files = await File.findAll(); // Fetch all files from the database
+    res.render('filemanager', { files });
+  } catch (error) {
+    console.error(error); // Log the error for debugging
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
