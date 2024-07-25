@@ -15,11 +15,11 @@ exports.uploadFile = async (req, res) => {
       name: originalname,
       size,
       type: mimetype,
-      userId: req.user ? req.user.id : null, // Adjust if user is authenticated
+      userId: req.user ? req.user.id : null,
       path: filePath,
     });
 
-    res.status(201).json(file);
+    res.redirect('/files'); //redirect to the file manager page after upload
   } catch (error) {
     console.error(error); 
     res.status(500).json({ error: error.message });
@@ -31,7 +31,7 @@ exports.getAllFiles = async (req, res) => {
   try {
     const files = await File.findAll({
       where: {
-        userId: req.user.id // filter files by currebt user id
+        userId: req.user.id // filter files by current user id
       }
     });
     return files; // return files
