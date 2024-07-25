@@ -2,13 +2,7 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 <body>
-    <nav>
-        <h1>My App</h1>
-        <!-- <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-        </ul> -->
-    </nav>
+    <%- include('./partials/navreg.ejs') %>
 
     <div class="content">
         <h2>Register</h2>
@@ -24,6 +18,10 @@
                 <input type="password" id="password" name="password" required>
                 
                 <button type="submit">Register</button>
+
+                <div class="link">
+                    <p> Already have an account? <a href="/login" class="link-form">Login here</a></p>
+                </div>
             </form>
         </div>
     </div>

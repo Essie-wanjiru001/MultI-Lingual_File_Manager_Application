@@ -90,6 +90,16 @@ h3 {
     border: 0;
     font-size: 1.2em;
     cursor: pointer;
+    border-radius: 10px;
+    width: 100px;
+}
+
+.link-form {
+    color: blue;
+}
+
+.link {
+    margin-top: 10px;
 }
 
 /* user dashboard styles */
