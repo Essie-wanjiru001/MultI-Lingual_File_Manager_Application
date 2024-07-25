@@ -1,6 +1,7 @@
 const File = require('../models/file');
 const path = require('path');
 const fs = require('fs');
+const thumbnailQueue = require('../queues/thumbnailQueue');
 
 // Upload a file
 exports.uploadFile = async (req, res) => {
@@ -18,6 +19,11 @@ exports.uploadFile = async (req, res) => {
       userId: req.user ? req.user.id : null,
       path: filePath,
     });
+
+    // thumbnail generation job to queue
+    if (file.type.startsWith('image/')) {
+      await thumbnailQueue.add({ fileId: file.id });
+    }
 
     res.redirect('/files'); //redirect to the file manager page after upload
   } catch (error) {

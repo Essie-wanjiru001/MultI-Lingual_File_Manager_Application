@@ -27,6 +27,10 @@ const File = sequelize.define('File', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  thumbnailPath: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 }, {
   tableName: 'files',
   timestamps: true,

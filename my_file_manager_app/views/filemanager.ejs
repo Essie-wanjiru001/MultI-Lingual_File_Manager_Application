@@ -21,6 +21,7 @@
                         <th><%= i18n.t('name') %></th>
                         <th><%= i18n.t('size') %></th>
                         <th><%= i18n.t('type') %></th>
+                        <th>Thumbnail</th>
                         <th><%= i18n.t('actions') %></th>
                     </tr>
                 </thead>
@@ -30,6 +31,19 @@
                             <td><%= file.name %></td>
                             <td><%= file.size %></td>
                             <td><%= file.type %></td>
+                            <td>
+                                <% if (file.type.startsWith('image/')) { %>
+                                    <% if (file.thumbnailPath) { %>
+                                        <img src="<%= file.thumbnailPath %>" alt="Thumbnail" style="width: 50px; height: 50px;">
+                                    <% } else { %>
+                                        Thumbnail processing
+                                    <% } %>
+                                <% } else { %>
+                                    Not an image
+                                <% } %>
+                                <!-- Debug info -->
+                                
+                            </td>
                             <td class="action-buttons">
                                 <a href="<%= file.path.replace(/^.*[\\\/]public[\\\/]/, '') %>" target="_blank" class="btn btn-secondary"><%= i18n.t('view') %></a>
                                 <form action="/api/files/<%= file.id %>" method="POST" class="inline-form" onsubmit="return handleDelete(this)">

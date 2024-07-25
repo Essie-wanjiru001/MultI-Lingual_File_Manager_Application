@@ -14,6 +14,8 @@ const Backend = require('i18next-fs-backend');
 const middleware = require('i18next-http-middleware');
 const { setLanguage } = require('./middleware/language');
 const cookieParser = require('cookie-parser');
+const thumbnailQueue = require('./queues/thumbnailQueue');
+const thumbnailWorker = require('./workers/thumbnailWorker');
 
 const app = express();
 
@@ -39,6 +41,9 @@ app.set('view engine', 'ejs');
 // middleware and static files
 app.use(express.static('public'));
 app.use(morgan('dev'));
+
+// Start the thumbnail worker
+thumbnailQueue.process(thumbnailWorker);
 
 // Middleware for parsing JSON requests
 app.use(express.json());
