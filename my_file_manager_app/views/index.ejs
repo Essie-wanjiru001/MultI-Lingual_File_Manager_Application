@@ -5,9 +5,9 @@
     <%- include('./partials/nav.ejs') %>
 
     <div class="content">
-        <h2>Welcome to the File Manager Application</h2>
-        <p>This is a multilingual file manager application that allows you to manage your files with ease.</p>
-        <p>Please register or login to access your dashboard and start managing your files.</p>
+        <h2><%= i18n.t('welcome') %></h2>
+        <p><%= i18n.t('app_description') %></p>
+        <p><%= i18n.t('please_login') %></p>
     </div>
 
     <%- include('./partials/footer.ejs') %>

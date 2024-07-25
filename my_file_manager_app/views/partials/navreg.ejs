@@ -1,18 +1,16 @@
 <nav>
     <h1>FileNexus</h1>
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/files">My Files</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
-        
+        <li><a href="/"><%= i18n.t('home') %></a></li>
+        <li><a href="/files"><%= i18n.t('my_files') %></a></li>
+        <li><a href="/dashboard"><%= i18n.t('dashboard') %></a></li>
         <li>
-            <form id="languageForm">
-                <select id="languageSelect" name="language" onchange="changeLanguage()">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                    <option value="de">Deutsch</option>
-                    <!-- Add more languages as needed -->
+            <form id="languageForm" action="/change-language" method="GET">
+                <select id="languageSelect" name="language" onchange="this.form.submit()">
+                    <option value="en" <%= i18n.language === 'en' ? 'selected' : '' %>>English</option>
+                    <option value="es" <%= i18n.language === 'es' ? 'selected' : '' %>>Español</option>
+                    <option value="fr" <%= i18n.language === 'fr' ? 'selected' : '' %>>Français</option>
+                    <option value="de" <%= i18n.language === 'de' ? 'selected' : '' %>>Deutsch</option>
                 </select>
             </form>
         </li>

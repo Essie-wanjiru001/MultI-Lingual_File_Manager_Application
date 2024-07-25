@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= i18n.language %>">
 <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/navreg.ejs') %>
 
     <div class="content">
-        <h2>Register</h2>
+        <h2><%= i18n.t('register') %></h2>
         <div class="create-form">
             <form action="/api/users/register" method="POST">
-                <label for="username">Username:</label>
+                <label for="username"><%= i18n.t('username') %></label>
                 <input type="text" id="username" name="username" required>
                 
-                <label for="email">Email:</label>
+                <label for="email"><%= i18n.t('email') %></label>
                 <input type="email" id="email" name="email" required>
                 
-                <label for="password">Password:</label>
+                <label for="password"><%= i18n.t('password') %></label>
                 <input type="password" id="password" name="password" required>
                 
-                <button type="submit">Register</button>
+                <button type="submit"><%= i18n.t('register') %></button>
 
                 <div class="link">
-                    <p> Already have an account? <a href="/login" class="link-form">Login here</a></p>
+                    <p><%= i18n.t('already_have_account') %> <a href="/login" class="link-form"><%= i18n.t('login_here') %></a></p>
                 </div>
             </form>
         </div>

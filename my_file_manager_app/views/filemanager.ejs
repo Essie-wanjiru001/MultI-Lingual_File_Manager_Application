@@ -7,21 +7,21 @@
     <%- include('./partials/nav.ejs') %>
 
     <div class="content file-manager-content">
-        <h2 class="section-title">Manage Your Files</h2>
+        <h2 class="section-title"><%= i18n.t('manage_files') %></h2>
         <form action="/api/files/upload" method="POST" enctype="multipart/form-data" class="upload-form">
             <input type="file" name="file" required class="file-input">
-            <button type="submit" class="btn btn-primary">Upload File</button>
+            <button type="submit" class="btn btn-primary"><%= i18n.t('upload_file') %></button>
         </form>
 
-        <h3 class="sub-section-title">Files List</h3>
+        <h3 class="sub-section-title"><%= i18n.t('files_list') %></h3>
         <div class="table-container">
             <table class="files-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Size (bytes)</th>
-                        <th>Type</th>
-                        <th>Actions</th>
+                        <th><%= i18n.t('name') %></th>
+                        <th><%= i18n.t('size') %></th>
+                        <th><%= i18n.t('type') %></th>
+                        <th><%= i18n.t('actions') %></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,9 +31,9 @@
                             <td><%= file.size %></td>
                             <td><%= file.type %></td>
                             <td class="action-buttons">
-                                <a href="<%= file.path.replace(/^.*[\\\/]public[\\\/]/, '') %>" target="_blank" class="btn btn-secondary">View</a>
+                                <a href="<%= file.path.replace(/^.*[\\\/]public[\\\/]/, '') %>" target="_blank" class="btn btn-secondary"><%= i18n.t('view') %></a>
                                 <form action="/api/files/<%= file.id %>" method="POST" class="inline-form" onsubmit="return handleDelete(this)">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger"><%= i18n.t('delete') %></button>
                                 </form>
                             </td>
                         </tr>
