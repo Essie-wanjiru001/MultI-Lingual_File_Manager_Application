@@ -55,7 +55,7 @@ exports.getFileById = async (req, res) => {
 // Delete a file by ID
 exports.deleteFile = async (req, res) => {
   try {
-    const file = await File.findByPk(req.params.id); // Find file by primary key
+    const file = await File.findByPk(req.params.id);
     if (file) {
       fs.unlinkSync(file.path); // Delete file from the filesystem
       await file.destroy(); // Delete file record from the database
@@ -64,7 +64,7 @@ exports.deleteFile = async (req, res) => {
       res.status(404).json({ message: 'File not found' });
     }
   } catch (error) {
-    console.error(error); // Log error for debugging
     res.status(500).json({ error: error.message });
   }
 };
+
