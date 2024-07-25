@@ -31,7 +31,7 @@
                             <td><%= file.size %></td>
                             <td><%= file.type %></td>
                             <td class="action-buttons">
-                                <a href="/api/files/<%= file.id %>" target="_blank" class="btn btn-secondary">View</a>
+                                <a href="<%= file.path.replace(/^.*[\\\/]public[\\\/]/, '') %>" target="_blank" class="btn btn-secondary">View</a>
                                 <form action="/api/files/<%= file.id %>" method="POST" class="inline-form">
                                     <button type="submit" formaction="/api/files/<%= file.id %>" formmethod="DELETE" class="btn btn-danger">Delete</button>
                                 </form>
