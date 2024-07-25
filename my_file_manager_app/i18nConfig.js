@@ -8,7 +8,7 @@
 //   .init({
 //     fallbackLng: 'en',
 //     backend: {
-//       loadPath: './locales/{{lng}}/{{ns}}.json',
+//       loadPath: './locales/{{lng}}/translation.json',
 //     },
 //     debug: process.env.NODE_ENV === 'development',
 //     detection: {

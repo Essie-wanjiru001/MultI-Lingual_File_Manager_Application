@@ -8,14 +8,27 @@ const passport = require('./config/passport');
 const userRoutes = require('./routes/userRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const File = require('./models/file');
+const i18next = require('i18next');
+const Backend = require('i18next-fs-backend');
+const middleware = require('i18next-http-middleware');
+
 // const i18next = require('./i18nConfig');
 // const i18nextFsBackend = require('i18next-fs-backend');
 // const i18nextHttpMiddleware = require('i18next-http-middleware');
 // const path = require('path');
 // const setLanguage = require('./middleware/languageMiddleware');
 
+i18next.use(Backend).use(middleware.LanguageDetector)
+  .init({
+    fallbackLng: 'en',
+    backend: {
+      loadPath: './locales/{{lng}}/translation.json'
+    }
+  })
+
 const app = express();
 
+app.use(middleware.handle(i18next));
 
 // i18next middleware
 // app.use(i18nextHttpMiddleware.handle(i18next));
