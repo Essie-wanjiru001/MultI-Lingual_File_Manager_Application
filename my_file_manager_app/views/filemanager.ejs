@@ -32,8 +32,8 @@
                             <td><%= file.type %></td>
                             <td class="action-buttons">
                                 <a href="<%= file.path.replace(/^.*[\\\/]public[\\\/]/, '') %>" target="_blank" class="btn btn-secondary">View</a>
-                                <form action="/api/files/<%= file.id %>" method="POST" class="inline-form">
-                                    <button type="submit" formaction="/api/files/<%= file.id %>" formmethod="DELETE" class="btn btn-danger">Delete</button>
+                                <form action="/api/files/<%= file.id %>" method="POST" class="inline-form" onsubmit="return handleDelete(this)">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -44,6 +44,7 @@
     </div>
 
     <%- include('./partials/footer.ejs') %>
+    <script src="/scripts.js"></script>
 
     <script>
         function changeLanguage() {

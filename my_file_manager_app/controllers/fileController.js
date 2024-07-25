@@ -21,7 +21,7 @@ exports.uploadFile = async (req, res) => {
 
     res.status(201).json(file);
   } catch (error) {
-    console.error(error); // Log error for debugging
+    console.error(error); 
     res.status(500).json({ error: error.message });
   }
 };
@@ -29,13 +29,19 @@ exports.uploadFile = async (req, res) => {
 // Get all files
 exports.getAllFiles = async (req, res) => {
   try {
-    const files = await File.findAll(); // Fetch all files from the database
-    res.status(200).json(files);
+    const files = await File.findAll({
+      where: {
+        userId: req.user.id // filter files by currebt user id
+      }
+    });
+    return files; // return files
   } catch (error) {
-    console.error(error); // Log error for debugging
-    res.status(500).json({ error: error.message });
+    console.error(error); 
+    throw new Error(error.message); 
   }
 };
+
+
 
 // Get a file by ID
 exports.getFileById = async (req, res) => {
@@ -47,7 +53,7 @@ exports.getFileById = async (req, res) => {
       res.status(404).json({ message: 'File not found' });
     }
   } catch (error) {
-    console.error(error); // Log error for debugging
+    console.error(error); 
     res.status(500).json({ error: error.message });
   }
 };
