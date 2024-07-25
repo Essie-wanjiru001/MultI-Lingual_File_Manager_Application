@@ -1,32 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Manager</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
+<%- include('./partials/head.ejs') %>
 
 <body class="file-manager-body">
-    <nav class="main-nav">
-        <h1 class="app-title">File Manager</h1>
-        <ul class="nav-links">
-            <li><a href="/" class="nav-link">Home</a></li>
-            <li><a href="/files" class="nav-link">My Files</a></li>
-            <li><a href="/logout" class="nav-link">Logout</a></li>
-            <li>
-                <form id="languageForm" class="language-form">
-                    <select id="languageSelect" name="language" onchange="changeLanguage()" class="language-select">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                        <option value="de">Deutsch</option>
-                    </select>
-                </form>
-            </li>
-        </ul>
-    </nav>
+    <%- include('./partials/nav.ejs') %>
 
     <div class="content file-manager-content">
         <h2 class="section-title">Manage Your Files</h2>
@@ -65,9 +43,7 @@
         </div>
     </div>
 
-    <footer class="main-footer">
-        <p>&copy; 2024 File Manager Application</p>
-    </footer>
+    <%- include('./partials/footer.ejs') %>
 
     <script>
         function changeLanguage() {
