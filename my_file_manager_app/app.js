@@ -16,7 +16,12 @@ const { setLanguage } = require('./middleware/language');
 const cookieParser = require('cookie-parser');
 const thumbnailQueue = require('./queues/thumbnailQueue');
 const thumbnailWorker = require('./workers/thumbnailWorker');
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
+// const indexRoute = require('./routes/index');
+const userRoute = require('./routes/userRoutes');
+const fileRoute = require('./routes/fileRoutes');
 const app = express();
 
 app.use(cookieParser());
@@ -41,6 +46,29 @@ app.set('view engine', 'ejs');
 // middleware and static files
 app.use(express.static('public'));
 app.use(morgan('dev'));
+
+
+//swagger option
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      version: '1.0.0',
+      title: 'FileNexus Swagger Documentation',
+      description: 'FileNexus file management system swagger documentation',
+      contact: {
+        name: 'eee',
+      },
+      servers: ["http://localhost:3000"]
+    },
+    schemes: ['http', 'https'],
+  },
+  apis: ["./routes/*.js"]
+}
+
+const SwaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(SwaggerDocs));
+app.use('/api', userRoute, fileRoute);
 
 // Start the thumbnail worker
 thumbnailQueue.process(thumbnailWorker);
