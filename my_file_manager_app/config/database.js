@@ -2,12 +2,14 @@ const { Sequelize } = require('sequelize');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
+const isTestEnv = process.env.NODE_ENV === 'test';
+
 // Create a Sequelize instance for ORM
 const sequelize = new Sequelize({
   host: process.env.DB_HOST || 'localhost',
   username: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME || 'file_manager',
+  database: process.env.NODE_ENV === 'test' ? process.env.DB_TEST_NAME : process.env.DB_NAME,
   dialect: 'mysql',
   pool: {
     max: 10,
@@ -23,7 +25,7 @@ const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME || 'file_manager',
+  database: process.env.NODE_ENV === 'test' ? process.env.DB_TEST_NAME : process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
