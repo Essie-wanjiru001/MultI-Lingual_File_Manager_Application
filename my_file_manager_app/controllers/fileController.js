@@ -69,14 +69,23 @@ exports.deleteFile = async (req, res) => {
   try {
     const file = await File.findByPk(req.params.id);
     if (file) {
-      fs.unlinkSync(file.path); // Delete file from the filesystem
+      const filePath = file.path;
+      console.log('Deleting file at path:', filePath);
+
+      // Check if the file exists before attempting to delete it
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath); // Delete file from the filesystem
+      } else {
+        console.warn('File not found on filesystem:', filePath);
+      }
+      
       await file.destroy(); // Delete file record from the database
       res.status(204).end();
     } else {
       res.status(404).json({ message: 'File not found' });
     }
   } catch (error) {
+    console.error('Error during file deletion:', error);
     res.status(500).json({ error: error.message });
   }
 };
-
