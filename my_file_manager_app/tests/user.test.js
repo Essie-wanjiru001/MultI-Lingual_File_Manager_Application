@@ -5,15 +5,23 @@ const { sequelize } = require('../config/database');
 
 describe('User Registration and Login', () => {
   beforeAll(async () => {
-    // Sync the database to ensure the model is up to date
-    await sequelize.sync({ force: true });
+    try {
+      // Sync the database to ensure the model is up to date
+      await sequelize.sync({ force: true });
+    } catch (error) {
+      console.error('Error during setup:', error);
+    }
   });
 
   afterAll(async () => {
-    // Clean up after tests
-    await User.destroy({ where: {} });
-    // Make sure to close the database connection at the very end
-    await sequelize.close();
+    try {
+      // Clean up after tests
+      await User.destroy({ where: {} });
+      // Close the database connection
+      await sequelize.close();
+    } catch (error) {
+      console.error('Error during teardown:', error);
+    }
   });
 
   it('should register a new user', async () => {
@@ -30,6 +38,11 @@ describe('User Registration and Login', () => {
   });
 
   it('should log in with valid credentials', async () => {
+    // Ensure the user is registered first
+    await request(app)
+      .post('/api/users/register')
+      .send({ email: 'testuser@example.com', password: 'securepassword', username: 'testuser' });
+
     const response = await request(app)
       .post('/api/users/login')
       .send({ email: 'testuser@example.com', password: 'securepassword' });
