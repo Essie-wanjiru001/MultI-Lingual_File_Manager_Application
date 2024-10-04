@@ -41,4 +41,4 @@ This project aims to demonstrate backend development skills through the creation
     - Write unit tests for core functionalities including user registration, file management operations, and the queuing system using Jest and Supertest
 
 6. API Documentation
-    - Used Swagger for API documentation
+    - Used Swagger for API documentation.
